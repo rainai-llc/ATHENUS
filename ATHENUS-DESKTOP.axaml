@@ -1,168 +1,94 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1600" d:DesignHeight="900"
         x:Class="Athenus.MainWindow"
-        Title="RAINAI LLC ATHENUS // Light-Form"
+        Title="ATHENUS // UNIFIED COMMAND"
         Width="1600" Height="900"
-        WindowStartupLocation="CenterScreen">
+        Background="{StaticResource MainBg}">
 
-    <Panel>
-        <Border Background="{StaticResource MetallicPlatinumBg}"/>
-        <Border Background="{StaticResource GlitterBrush}" Opacity="0.4"/>
-
-        <Grid ColumnDefinitions="380, *, 420" Margin="25">
-
-            <Grid Grid.Column="2" RowDefinitions="Auto, *" Margin="10">
-                <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,25">
-                    <Grid ColumnDefinitions="*, Auto">
-                        <TextBlock Text="HOME" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="4"/>
-                        
-                        <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                            <Ellipse Width="8" Height="8" Fill="#00FF41">
-                                <Ellipse.Effect>
-                                    <DropShadowEffect BlurRadius="10" Color="#00FF41" Opacity="0.5"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-
-                            <ToggleButton Name="PrivacyLock" Cursor="Hand">
-                                <ToggleButton.Styles>
-                                    <Style Selector="ToggleButton">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="BorderThickness" Value="0"/>
-                                        <Setter Property="Content" Value="🔓"/>
-                                    </Style>
-                                    <Style Selector="ToggleButton:checked">
-                                        <Setter Property="Content" Value="🔒"/>
-                                        <Setter Property="Foreground" Value="{StaticResource Gold}"/>
-                                    </Style>
-                                </ToggleButton.Styles>
-                            </ToggleButton>
-                        </StackPanel>
-                    </Grid>
-
-                    <Border Background="rgba(255,255,255,0.8)" CornerRadius="10" Padding="20" BoxShadow="{StaticResource SoftDepth}">
-                        <StackPanel Spacing="12">
-                            <Grid ColumnDefinitions="*, Auto">
-                                <TextBlock Text="HEALTH" Foreground="{StaticResource Platinum}" FontSize="10" FontWeight="Bold"/>
-                                <TextBlock Grid.Column="1" Text="861.42 MB" Foreground="{StaticResource Obsidian}" FontSize="10"/>
-                            </Grid>
-                            <ProgressBar Value="34" Height="2" Foreground="{StaticResource Obsidian}" Background="#EEE"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-
-                <Border Grid.Row="1" Background="{StaticResource Obsidian}" CornerRadius="12" Padding="5" BoxShadow="{StaticResource SoftDepth}">
-                    <DockPanel>
-                        <Border DockPanel.Dock="Top" Background="#252525" Padding="15,10" CornerRadius="10,10,0,0">
-                            <TextBlock Text="ACTIVE_STREAM" Foreground="#666" FontSize="9" FontFamily="JetBrains Mono, Consolas"/>
-                        </Border>
-                        <ScrollViewer Padding="15">
-                            <StackPanel Name="AuditLogContainer"/>
-                        </ScrollViewer>
-                    </DockPanel>
-                </Border>
-            </Grid>
-
-            <Border Grid.Column="0"
-                    Background="rgba(255,255,255,0.7)"
-                    CornerRadius="15"
-                    BorderBrush="{StaticResource Gold}"
-                    BorderThickness="0,0,0,4"
-                    Margin="10"
-                    Padding="30"
-                    BoxShadow="{StaticResource SoftDepth}">
-                <StackPanel Spacing="30">
-                    <StackPanel>
-                        <TextBlock Text="ATHENUS // INTAKE" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="4"/>
-                        <TextBlock Text="The Forge" Foreground="{StaticResource Obsidian}" FontSize="32" FontWeight="Light"/>
-                    </StackPanel>
-
-                    <Border Background="White" BorderBrush="#D4D4D4" BorderThickness="1" CornerRadius="8" Padding="20">
-                        <StackPanel Spacing="15">
-                            <TextBlock Text="SECURE REPOSITORY" Foreground="{StaticResource Platinum}" FontSize="10" FontWeight="Bold"/>
-                            <TextBlock Name="FilePathDisplay" Text="WAITING_FOR_LINK..." Foreground="{StaticResource Obsidian}" FontSize="12" FontFamily="Cascadia Code, Consolas" TextWrapping="Wrap"/>
-                            <Button Classes="GoldAction" Content="BROWSE DATA SOURCE" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
-                        </StackPanel>
-                    </Border>
-
+    <Grid ColumnDefinitions="350, *, 400" Margin="20">
+        
+        <Border Grid.Column="0" BorderBrush="#E5E5E5" BorderThickness="0,0,1,0" Padding="0,0,20,0">
+            <StackPanel Spacing="25">
+                <TextBlock Text="ATHENUS V1" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="3"/>
+                
+                <Border Background="White" CornerRadius="8" Padding="15" BoxShadow="{StaticResource SoftDepth}">
                     <StackPanel Spacing="10">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <TextBlock Text="PIPELINE INTEGRITY" Foreground="{StaticResource Obsidian}" FontSize="11" FontWeight="Bold"/>
-                            <TextBlock Grid.Column="1" Name="ProgressText" Text="0%" Foreground="{StaticResource Gold}" FontWeight="Bold"/>
-                        </Grid>
-                        <ProgressBar Name="ReadinessBar" Value="0" Height="3" Foreground="{StaticResource Gold}" Background="#DDD"/>
+                        <TextBlock Text="DATA EFFECIENNCY" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                        <TextBlock Name="FilePathDisplay" Text="PRE-ORDER" FontSize="11" FontFamily="Consolas"/>
+                        <Button Classes="GoldAction" Content="BROWSE" HorizontalAlignment="Stretch"/>
                     </StackPanel>
+                </Border>
 
-                    <Button Name="ExecuteBtn"
-                            Content="SYNTHESIZE INTELLIGENCE"
-                            Background="{StaticResource Obsidian}"
-                            Foreground="White"
-                            HorizontalAlignment="Stretch"
-                            Height="55"
-                            FontWeight="SemiBold"
-                            CornerRadius="6"/>
+                <StackPanel Spacing="5">
+                    <TextBlock Text="DATA QA - Artificial Intelligence Standard Approved" Foreground="{StaticResource Obsidian}" FontSize="10" FontWeight="Bold"/>
+                    <ProgressBar Name="ReadinessBar" Value="45" Height="2" Foreground="{StaticResource Gold}"/>
                 </StackPanel>
+
+                <Button Name="ExecuteBtn" Content="SYNTHESIZE" Background="{StaticResource Obsidian}" Foreground="White" HorizontalAlignment="Stretch" Height="45"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Column="1" RowDefinitions="*, 200" Margin="30,0">
+            <Border Grid.Row="0" Background="White" CornerRadius="15" BoxShadow="{StaticResource SoftDepth}" BorderBrush="#EEE" BorderThickness="1">
+                <Panel>
+                    <TextBlock Text="VIEW 0" Margin="20" Foreground="{StaticResource Platinum}" FontSize="10" HorizontalAlignment="Center"/>
+                    
+                    <Canvas Name="DimensionCanvas">
+                        <Ellipse Width="300" Height="300" Fill="{StaticResource GoldMuted}" Opacity="0.1" Canvas.Left="150" Canvas.Top="50"/>
+                        <Ellipse Width="20" Height="20" Fill="{StaticResource Gold}" Canvas.Left="290" Canvas.Top="190">
+                             <Ellipse.Effect>
+                                <DropShadowEffect BlurRadius="20" Color="#D4AF37" Opacity="0.5"/>
+                             </Ellipse.Effect>
+                        </Ellipse>
+                    </Canvas>
+                </Panel>
             </Border>
 
-            <Grid Grid.Column="1" RowDefinitions="*, 180" Margin="15">
-                <Border Grid.Row="0"
-                        Background="rgba(255,255,255,0.4)"
-                        CornerRadius="20"
-                        BorderBrush="White"
-                        BorderThickness="2"
-                        ClipToBounds="True">
-
-                    <Panel Name="TvScreenContainer">
-                        <Border Background="{StaticResource GlitterBrush}" Opacity="0.2"/>
-
-                        <Panel Name="TvContent" IsVisible="{Binding !#PrivacyLock.IsChecked}">
-                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <Rectangle.Fill>
-                                    <VisualBrush TileMode="Tile" SourceRect="0,0,50,50" DestinationRect="0,0,50,50">
-                                        <VisualBrush.Visual>
-                                            <Path Data="M 50 0 L 0 0 0 50" Stroke="{StaticResource Gold}" StrokeThickness="0.5" Opacity="0.1"/>
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Canvas Name="VirtualDesktop" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        </Panel>
-
-                        <Border Background="{StaticResource Obsidian}"
-                                IsVisible="{Binding #PrivacyLock.IsChecked}"
-                                Opacity="0.95">
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-                                <TextBlock Text="[ DIMENSION_LOCKED ]" Foreground="{StaticResource Gold}" FontWeight="Bold" LetterSpacing="5" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Privacy Protocol Active" Foreground="{StaticResource Platinum}" FontSize="10" HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                    </Panel>
+            <UniformGrid Grid.Row="1" Columns="3" Margin="0,20,0,0">
+                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="VIEW 1" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                        <TextBlock Text="0" Foreground="#FF4444" FontSize="20" FontWeight="Bold"/>
+                    </StackPanel>
                 </Border>
-
-                <UniformGrid Grid.Row="1" Columns="3" Margin="0,20,0,0">
-                    <Border Margin="8" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="RISK" Foreground="{StaticResource Platinum}" FontSize="10"/>
-                            <TextBlock Name="Count" Text="0" Foreground="#FF4444" FontSize="28" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Border>
-                    <Border Margin="8" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="ACTIVE" Foreground="{StaticResource Platinum}" FontSize="10"/>
-                            <TextBlock Text="12.4%" Foreground="{StaticResource Gold}" FontSize="28" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Border>
-                    <Border Margin="8" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="LATENCY" Foreground="{StaticResource Platinum}" FontSize="10"/>
-                            <TextBlock Text="2ms" Foreground="{StaticResource Obsidian}" FontSize="28" FontWeight="Bold"/>
-                        </StackPanel>
-                    </Border>
-                </UniformGrid>
-            </Grid>
-
+                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="VIEW 2" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                        <TextBlock Text="14%" Foreground="{StaticResource Gold}" FontSize="20" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="VIEW 3" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                        <TextBlock Text="99.9%" Foreground="{StaticResource Obsidian}" FontSize="20" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
         </Grid>
-    </Panel>
+
+        <Grid Grid.Column="2" RowDefinitions="Auto, *">
+            <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,20">
+                <TextBlock Text="HEALTH" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="3"/>
+                
+                <Border Background="#F9F9F9" Padding="15" CornerRadius="8">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBlock Text="RESOURCES" FontSize="10" Foreground="{StaticResource Platinum}"/>
+                            <TextBlock Grid.Column="1" Text="861 MB" FontSize="10" FontWeight="Bold"/>
+                        </Grid>
+                        <ProgressBar Value="30" Height="2" Foreground="{StaticResource Obsidian}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <Border Grid.Row="1" Background="{StaticResource Obsidian}" CornerRadius="10" Padding="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="LIVE_VIEW" Foreground="#555" FontSize="9" Margin="5" FontFamily="Consolas"/>
+                    <ScrollViewer>
+                        <StackPanel Name="AuditLogContainer"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
 </Window>
