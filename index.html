@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ATHENUS // UI</title>
+    <title>RAINAI LLC - ATHENUS</title>
     <style>
         :root {
             --gold: #D4AF37;
@@ -11,6 +11,10 @@
             --platinum: #8E8E93;
             --ios-bg: #F2F2F7;
             --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -21,19 +25,21 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
+            overflow: hidden; /* Prevents layout break on zoom */
         }
 
         /* --- Main Layout --- */
         .container {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            overflow-y: auto;
-            flex-grow: 1;
+            display: grid;
+            /* Layout: Sidebar (Fixed) | Stats (Fixed) | Log (Flexible) */
+            grid-template-columns: 180px 140px 1fr;
+            gap: 15px;
+            padding: 15px;
+            height: 45vh; /* Upper control area takes 45% of height */
+            min-height: 250px;
         }
 
-        /* --- Section: The Forge (Intake) --- */
+        /* Sidebar Card */
         .card {
             background: var(--glass);
             backdrop-filter: blur(10px);
@@ -42,6 +48,10 @@
             padding: 20px;
             border-bottom: 4px solid var(--gold);
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .label-tiny {
@@ -50,37 +60,82 @@
             letter-spacing: 2px;
             color: var(--gold);
             text-transform: uppercase;
+            text-align: center;
         }
 
-        h1 {
-            font-size: 28px;
-            margin: 5px 0 20px 0;
-            font-weight: 300;
+        .businessLogo {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
+            object-fit: contain;
         }
 
         .btn-action {
             width: 100%;
             background: var(--obsidian);
-            color: white;
+            color: var(--platinum);
             border: none;
-            padding: 16px;
+            padding: 14px;
             border-radius: 12px;
             font-weight: 600;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.1s, opacity 0.2s;
         }
 
-        .btn-action:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-action:active { transform: scale(0.96); opacity: 0.9; }
 
-        /* --- Section: Dimension Feed (The Screen) --- */
+        /* Stats Column */
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: white;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            padding: 10px;
+        }
+
+        /* Audit Log Area */
+        .log-section {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .forensic-stream {
+            background: black;
+            border-radius: 15px;
+            color: var(--gold);
+            flex-grow: 1;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            padding: 15px;
+            overflow-y: auto;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .stream-entry { margin-bottom: 6px; opacity: 0.8; line-height: 1.4; }
+
+        /* --- Viewport (Lower Area) --- */
         .viewport-container {
-            background: #fff;
+            flex-grow: 1;
+            margin: 0 15px 15px 15px;
+            background: var(--platinum);
             border-radius: 24px;
             overflow: hidden;
             border: 2px solid #fff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .viewport-header {
@@ -89,13 +144,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: bold;
             color: var(--platinum);
+            letter-spacing: 1px;
         }
 
         .screen-content {
-            height: 200px;
+            flex-grow: 1;
             background: #f9f9f9;
             display: flex;
             align-items: center;
@@ -103,113 +159,92 @@
             position: relative;
             background-image: radial-gradient(var(--gold) 0.5px, transparent 0.5px);
             background-size: 20px 20px;
-            background-opacity: 0.1;
         }
 
         .locked-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background: var(--obsidian);
             color: var(--gold);
             display: none;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             z-index: 10;
         }
 
-        /* --- Section: Stats Grid --- */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+        canvas {
+            width: 100%;
+            height: 100%;
         }
 
-        .stat-box {
-            background: white;
-            padding: 15px 5px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-        }
-
-        .stat-value {
-            font-size: 18px;
-            font-weight: 700;
-            display: block;
-        }
-
-        /* --- Section: Nerve Center (Audit Stream) --- */
-        .forensic-stream {
-            background: var(--obsidian);
-            border-radius: 15px;
-            color: #666;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 11px;
-            padding: 15px;
-            height: 120px;
-            overflow-y: auto;
-        }
-
-        .stream-entry { margin-bottom: 5px; color: #00FF41; opacity: 0.8; }
-
-        /* State Control */
         .is-locked .locked-overlay { display: flex; }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+                overflow-y: auto;
+            }
+            body { overflow-y: auto; height: auto; }
+            .viewport-container { height: 400px; margin-top: 15px; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <section class="card">
-        <div class="label-tiny">Athenus // Intake</div>
-        <h1>The Forge</h1>
-        <button class="btn-action" onclick="synthesize()">SYNTHESIZE</button>
-    </section>
-
-    <section class="viewport-container" id="mainViewport">
-        <div class="viewport-header">
-            <span>DIMENSION_FEED_01</span>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <div style="width: 8px; height: 8px; background: #00FF41; border-radius: 50%; box-shadow: 0 0 5px #00FF41;"></div>
-                <span id="lockToggle" style="cursor: pointer; font-size: 14px;">🔓</span>
-            </div>
-        </div>
-        <div class="screen-content">
-            <div class="locked-overlay">[ DIMENSION_LOCKED ]</div>
-            <canvas id="virtualCanvas" width="300" height="150"></canvas>
-        </div>
+        <div class="label-tiny">RAINAI LLC - ATHENUS</div>
+        <img class="businessLogo" src="/images/watermarkrainaillc.png" alt="Logo">
+        <button class="btn-action" onclick="synthesize()">START</button>
     </section>
 
     <section class="stats-grid">
         <div class="stat-box">
-            <span class="label-tiny" style="font-size: 8px;">PII Risk</span>
-            <span class="stat-value" style="color: #00FF41;">LOW</span>
+            <span class="label-tiny">Health</span>
+            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">100%</div>
         </div>
         <div class="stat-box">
-            <span class="label-tiny" style="font-size: 8px;">Sync</span>
-            <span class="stat-value" style="color: var(--gold);">99%</span>
+            <span class="label-tiny">Light-Forms</span>
+            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">ACTIVE</div>
         </div>
         <div class="stat-box">
-            <span class="label-tiny" style="font-size: 8px;">Uptime</span>
-            <span class="stat-value">100%</span>
+            <span class="label-tiny">State</span>
+            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">NOMINAL</div>
         </div>
     </section>
 
-    <section>
-        <div class="label-tiny" style="margin-bottom: 10px;">Nerve Center</div>
+    <section class="log-section">
         <div class="forensic-stream" id="auditLog">
-            <div class="stream-entry">> INITIALIZING HYPERVISOR...</div>
-            <div class="stream-entry">> SYNCING TEMPORAL DATA...</div>
+            <div class="stream-entry">> SYSTEM_INITIALIZED...</div>
+            <div class="stream-entry">> WAITING_FOR_INPUT</div>
         </div>
     </section>
 </div>
 
+<section class="viewport-container" id="mainViewport">
+    <div class="viewport-header">
+        <span>DIMENSION_01</span>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div style="width: 8px; height: 8px; background: #00FF41; border-radius: 50%; box-shadow: 0 0 8px #00FF41;"></div>
+            <span id="lockToggle" style="cursor: pointer; font-size: 16px;">🔓</span>
+        </div>
+    </div>
+    <div class="screen-content">
+        <div class="locked-overlay">[ DIMENSION_LOCKED ]</div>
+        <canvas id="virtualCanvas"></canvas>
+    </div>
+</section>
+
 <script>
-    // Toggle Privacy Lock
     const lockBtn = document.getElementById('lockToggle');
     const viewport = document.getElementById('mainViewport');
-    
+    const log = document.getElementById('auditLog');
+
+    // Toggle Privacy Lock
     lockBtn.addEventListener('click', () => {
         const isLocked = viewport.classList.toggle('is-locked');
         lockBtn.innerText = isLocked ? '🔒' : '🔓';
@@ -219,19 +254,24 @@
     // Handle "Synthesize" Button
     function synthesize() {
         const btn = document.querySelector('.btn-action');
-        btn.innerText = "SYNTHESIZING...";
-        setTimeout(() => {
-            btn.innerText = "SYNTHESIZE";
-            addLog("SYNTHESIS_COMPLETE: NEW_ENTITY_FORGED");
-        }, 1500);
+        if(btn.innerText === "START") {
+            btn.innerText = "STARTING...";
+            setTimeout(() => {
+                btn.innerText = "STOP";
+                addLog("SYNTHESIS_COMPLETE: NEW_ENTITY_FORGED");
+            }, 1000);
+        } else {
+            btn.innerText = "START";
+            addLog("PROCESS_TERMINATED_BY_USER");
+        }
     }
 
     // Add to Audit Log
     function addLog(msg) {
-        const log = document.getElementById('auditLog');
         const entry = document.createElement('div');
         entry.className = 'stream-entry';
-        entry.innerText = `> ${msg}`;
+        const timestamp = new Date().toLocaleTimeString([], {hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit'});
+        entry.innerText = `[${timestamp}] > ${msg}`;
         log.prepend(entry);
     }
 </script>
