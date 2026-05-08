@@ -7,15 +7,15 @@
     <style>
         :root {
             --gold: #D4AF37;
+            --gold-glitter: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
             --obsidian: #1C1C1E;
             --platinum: #8E8E93;
             --ios-bg: #F2F2F7;
             --glass: rgba(255, 255, 255, 0.7);
+            --frosted: rgba(255, 255, 255, 0.4);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
@@ -25,21 +25,19 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Prevents layout break on zoom */
+            overflow: hidden;
         }
 
         /* --- Main Layout --- */
         .container {
             display: grid;
-            /* Layout: Sidebar (Fixed) | Stats (Fixed) | Log (Flexible) */
             grid-template-columns: 180px 140px 1fr;
             gap: 15px;
             padding: 15px;
-            height: 45vh; /* Upper control area takes 45% of height */
+            height: 45vh;
             min-height: 250px;
         }
 
-        /* Sidebar Card */
         .card {
             background: var(--glass);
             backdrop-filter: blur(10px);
@@ -78,19 +76,13 @@
             padding: 14px;
             border-radius: 12px;
             font-weight: 600;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
+            transition: transform 0.1s;
         }
 
-        .btn-action:active { transform: scale(0.96); opacity: 0.9; }
+        .btn-action:active { transform: scale(0.96); }
 
-        /* Stats Column */
-        .stats-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .stats-grid { display: flex; flex-direction: column; gap: 10px; }
 
         .stat-box {
             background: white;
@@ -101,14 +93,6 @@
             justify-content: center;
             border-radius: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            padding: 10px;
-        }
-
-        /* Audit Log Area */
-        .log-section {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
         }
 
         .forensic-stream {
@@ -116,16 +100,16 @@
             border-radius: 15px;
             color: var(--gold);
             flex-grow: 1;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Courier New', monospace;
             font-size: 12px;
             padding: 15px;
             overflow-y: auto;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .stream-entry { margin-bottom: 6px; opacity: 0.8; line-height: 1.4; }
+        .stream-entry { margin-bottom: 6px; opacity: 0.8; }
 
-        /* --- Viewport (Lower Area) --- */
+        /* --- Viewport & Chat --- */
         .viewport-container {
             flex-grow: 1;
             margin: 0 15px 15px 15px;
@@ -133,7 +117,7 @@
             border-radius: 24px;
             overflow: hidden;
             border: 2px solid #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
             display: flex;
             flex-direction: column;
         }
@@ -143,53 +127,115 @@
             padding: 10px 15px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-size: 10px;
             font-weight: bold;
-            color: var(--platinum);
-            letter-spacing: 1px;
         }
 
         .screen-content {
             flex-grow: 1;
             background: #f9f9f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
             background-image: radial-gradient(var(--gold) 0.5px, transparent 0.5px);
             background-size: 20px 20px;
+            position: relative;
         }
 
-        .locked-overlay {
+        /* --- Metallic Gold Chat --- */
+        #chatWidget {
             position: absolute;
-            inset: 0;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            background: var(--frosted);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        #chatWidget.minimized {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-header {
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .chat-title {
+            font-size: 11px;
+            font-weight: 800;
+            background: var(--gold-glitter);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .chat-close { cursor: pointer; color: var(--obsidian); font-weight: bold; }
+
+        .chat-body {
+            height: 200px;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 13px;
+        }
+
+        .chat-input-area {
+            padding: 10px;
+            display: flex;
+            gap: 8px;
+        }
+
+        #chatInput {
+            flex-grow: 1;
+            background: rgba(255,255,255,0.5);
+            border: none;
+            border-radius: 8px;
+            padding: 8px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .chat-send {
             background: var(--obsidian);
             color: var(--gold);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            letter-spacing: 4px;
-            z-index: 10;
+            border: none;
+            border-radius: 8px;
+            padding: 0 12px;
+            cursor: pointer;
+            font-size: 18px;
         }
 
-        canvas {
-            width: 100%;
-            height: 100%;
+        .msg {
+            margin-bottom: 8px;
+            background: var(--gold-glitter);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
         }
 
         .is-locked .locked-overlay { display: flex; }
+        .locked-overlay {
+            position: absolute; inset: 0; background: var(--obsidian);
+            color: var(--gold); display: none; align-items: center;
+            justify-content: center; z-index: 10;
+        }
 
-        /* Responsive adjustments for mobile */
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-                height: auto;
-                overflow-y: auto;
-            }
+            .container { grid-template-columns: 1fr; height: auto; overflow-y: auto; }
             body { overflow-y: auto; height: auto; }
-            .viewport-container { height: 400px; margin-top: 15px; }
+            .viewport-container { height: 500px; }
         }
     </style>
 </head>
@@ -203,77 +249,99 @@
     </section>
 
     <section class="stats-grid">
-        <div class="stat-box">
-            <span class="label-tiny">Health</span>
-            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">100%</div>
-        </div>
-        <div class="stat-box">
-            <span class="label-tiny">Light-Forms</span>
-            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">ACTIVE</div>
-        </div>
-        <div class="stat-box">
-            <span class="label-tiny">State</span>
-            <div style="font-size: 14px; font-weight: bold; margin-top: 5px;">NOMINAL</div>
-        </div>
+        <div class="stat-box"><span class="label-tiny">Health</span></div>
+        <div class="stat-box"><span class="label-tiny">Light-Forms</span></div>
+        <div class="stat-box"><span class="label-tiny">State</span></div>
     </section>
 
-    <section class="log-section">
-        <div class="forensic-stream" id="auditLog">
-            <div class="stream-entry">> SYSTEM_INITIALIZED...</div>
-            <div class="stream-entry">> WAITING_FOR_INPUT</div>
-        </div>
+    <section class="forensic-stream" id="auditLog">
+        <div class="stream-entry">> INITIALIZING_INTERFACE...</div>
     </section>
 </div>
 
 <section class="viewport-container" id="mainViewport">
     <div class="viewport-header">
         <span>DIMENSION_01</span>
-        <div style="display: flex; gap: 12px; align-items: center;">
-            <div style="width: 8px; height: 8px; background: #00FF41; border-radius: 50%; box-shadow: 0 0 8px #00FF41;"></div>
-            <span id="lockToggle" style="cursor: pointer; font-size: 16px;">🔓</span>
-        </div>
+        <span id="lockToggle" style="cursor: pointer;">🔓</span>
     </div>
+    
     <div class="screen-content">
         <div class="locked-overlay">[ DIMENSION_LOCKED ]</div>
+        
+        <div id="chatWidget" class="minimized" onclick="toggleChat(event)">
+            <div id="chatIcon" style="font-size: 20px;">💬</div>
+            
+            <div id="chatContent" style="display: none; flex-direction: column; width: 100%;">
+                <div class="chat-header">
+                    <span class="chat-title">Athenus Link</span>
+                    <span class="chat-close" onclick="closeChat(event)">✕</span>
+                </div>
+                <div class="chat-body" id="chatBody"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Enter command..." onkeydown="handleKey(event)">
+                    <button class="chat-send" onclick="sendMessage()">→</button>
+                </div>
+            </div>
+        </div>
+
         <canvas id="virtualCanvas"></canvas>
     </div>
 </section>
 
 <script>
-    const lockBtn = document.getElementById('lockToggle');
-    const viewport = document.getElementById('mainViewport');
-    const log = document.getElementById('auditLog');
+    const widget = document.getElementById('chatWidget');
+    const content = document.getElementById('chatContent');
+    const icon = document.getElementById('chatIcon');
+    const input = document.getElementById('chatInput');
+    const body = document.getElementById('chatBody');
 
-    // Toggle Privacy Lock
-    lockBtn.addEventListener('click', () => {
-        const isLocked = viewport.classList.toggle('is-locked');
-        lockBtn.innerText = isLocked ? '🔒' : '🔓';
-        addLog(isLocked ? "SECURITY_ENFORCED: DIMENSION_LOCKED" : "SECURITY_DEGRADED: DIMENSION_OPEN");
-    });
-
-    // Handle "Synthesize" Button
-    function synthesize() {
-        const btn = document.querySelector('.btn-action');
-        if(btn.innerText === "START") {
-            btn.innerText = "STARTING...";
-            setTimeout(() => {
-                btn.innerText = "STOP";
-                addLog("SYNTHESIS_COMPLETE: NEW_ENTITY_FORGED");
-            }, 1000);
-        } else {
-            btn.innerText = "START";
-            addLog("PROCESS_TERMINATED_BY_USER");
+    function toggleChat(e) {
+        if (widget.classList.contains('minimized')) {
+            widget.classList.remove('minimized');
+            icon.style.display = 'none';
+            content.style.display = 'flex';
         }
     }
 
-    // Add to Audit Log
+    function closeChat(e) {
+        e.stopPropagation();
+        widget.classList.add('minimized');
+        icon.style.display = 'flex';
+        content.style.display = 'none';
+    }
+
+    function handleKey(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+
+    function sendMessage() {
+        if (!input.value.trim()) return;
+        const msg = document.createElement('div');
+        msg.className = 'msg';
+        msg.innerText = `U: ${input.value}`;
+        body.appendChild(msg);
+        addLog(`CHAT_TRANSMISSION: ${input.value}`);
+        input.value = '';
+        body.scrollTop = body.scrollHeight;
+    }
+
+    function synthesize() {
+        const btn = document.querySelector('.btn-action');
+        btn.innerText = btn.innerText === "START" ? "STOP" : "START";
+        addLog(btn.innerText === "STOP" ? "SYNTHESIS_ACTIVE" : "SYNTHESIS_HALTED");
+    }
+
     function addLog(msg) {
         const entry = document.createElement('div');
         entry.className = 'stream-entry';
-        const timestamp = new Date().toLocaleTimeString([], {hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit'});
-        entry.innerText = `[${timestamp}] > ${msg}`;
-        log.prepend(entry);
+        entry.innerText = `> ${msg}`;
+        document.getElementById('auditLog').prepend(entry);
     }
+
+    document.getElementById('lockToggle').addEventListener('click', () => {
+        const isLocked = document.getElementById('mainViewport').classList.toggle('is-locked');
+        document.getElementById('lockToggle').innerText = isLocked ? '🔒' : '🔓';
+    });
 </script>
 
 </body>
