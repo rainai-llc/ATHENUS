@@ -1,94 +1,129 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="Athenus.MainWindow"
-        Title="ATHENUS // UNIFIED COMMAND"
+        Title="ATHENUS // UNIFIED INTELLIGENCE"
         Width="1600" Height="900"
-        Background="{StaticResource MainBg}">
+        WindowStartupLocation="CenterScreen">
 
-    <Grid ColumnDefinitions="350, *, 400" Margin="20">
-        
-        <Border Grid.Column="0" BorderBrush="#E5E5E5" BorderThickness="0,0,1,0" Padding="0,0,20,0">
-            <StackPanel Spacing="25">
-                <TextBlock Text="THE FORGE" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="3"/>
-                
-                <Border Background="White" CornerRadius="8" Padding="15" BoxShadow="{StaticResource SoftDepth}">
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="DATA REPOSITORY" Foreground="{StaticResource Platinum}" FontSize="9"/>
-                        <TextBlock Name="FilePathDisplay" Text="READY_FOR_LINK" FontSize="11" FontFamily="Consolas"/>
-                        <Button Classes="GoldAction" Content="BROWSE" HorizontalAlignment="Stretch"/>
+    <Panel>
+        <Border Background="{StaticResource MetallicPlatinumBg}"/>
+        <Border Background="{StaticResource GlitterBrush}" Opacity="0.4"/>
+
+        <Grid ColumnDefinitions="380, *, 420" Margin="25">
+
+            <Border Grid.Column="0" Background="rgba(255,255,255,0.7)" CornerRadius="15" BorderBrush="{StaticResource Gold}" BorderThickness="0,0,0,4" Margin="10" Padding="25">
+                <StackPanel Spacing="25">
+                    <StackPanel>
+                        <TextBlock Text="ATHENUS // INTAKE" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="4"/>
+                        <TextBlock Text="The Forge" Foreground="{StaticResource Obsidian}" FontSize="30" FontWeight="Light"/>
                     </StackPanel>
+                    <Button Name="ExecuteBtn" Content="SYNTHESIZE" Background="{StaticResource Obsidian}" Foreground="White" HorizontalAlignment="Stretch" Height="50" CornerRadius="4"/>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Column="1" RowDefinitions="*, 180" Margin="15">
+                <Border Grid.Row="0" 
+                        Background="rgba(255,255,255,0.4)" 
+                        CornerRadius="20" 
+                        BorderBrush="White" 
+                        BorderThickness="2" 
+                        ClipToBounds="True"
+                        BoxShadow="{StaticResource SoftDepth}">
+                    
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top" Height="40" Background="rgba(255,255,255,0.5)" Padding="20,0">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <TextBlock Text="DIMENSION_FEED_01" VerticalAlignment="Center" Foreground="{StaticResource Platinum}" FontSize="9" LetterSpacing="2" FontWeight="Bold"/>
+                                
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="15" VerticalAlignment="Center">
+                                    <Ellipse Width="8" Height="8" Fill="#00FF41">
+                                        <Ellipse.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="#00FF41" Opacity="0.5"/>
+                                        </Ellipse.Effect>
+                                    </Ellipse>
+                                    
+                                    <ToggleButton Name="PrivacyLock" Cursor="Hand" Background="Transparent" BorderThickness="0">
+                                        <ToggleButton.Styles>
+                                            <Style Selector="ToggleButton">
+                                                <Setter Property="Content" Value="🔓"/>
+                                            </Style>
+                                            <Style Selector="ToggleButton:checked">
+                                                <Setter Property="Content" Value="🔒"/>
+                                                <Setter Property="Foreground" Value="{StaticResource Gold}"/>
+                                            </Style>
+                                        </ToggleButton.Styles>
+                                    </ToggleButton>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Panel Name="TvScreenContainer">
+                            <Border Background="{StaticResource GlitterBrush}" Opacity="0.1"/>
+                            
+                            <Panel IsVisible="{Binding !#PrivacyLock.IsChecked}">
+                                <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Rectangle.Fill>
+                                        <VisualBrush TileMode="Tile" SourceRect="0,0,45,45" DestinationRect="0,0,45,45">
+                                            <VisualBrush.Visual>
+                                                <Path Data="M 45 0 L 0 0 0 45" Stroke="{StaticResource Gold}" StrokeThickness="0.4" Opacity="0.1"/>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Canvas Name="VirtualDesktop" />
+                            </Panel>
+
+                            <Border Background="{StaticResource Obsidian}" IsVisible="{Binding #PrivacyLock.IsChecked}">
+                                <TextBlock Text="[ DIMENSION_LOCKED ]" Foreground="{StaticResource Gold}" HorizontalAlignment="Center" VerticalAlignment="Center" LetterSpacing="10" FontWeight="Bold"/>
+                            </Border>
+                        </Panel>
+                    </DockPanel>
                 </Border>
 
-                <StackPanel Spacing="5">
-                    <TextBlock Text="INTEGRITY" Foreground="{StaticResource Obsidian}" FontSize="10" FontWeight="Bold"/>
-                    <ProgressBar Name="ReadinessBar" Value="45" Height="2" Foreground="{StaticResource Gold}"/>
+                <UniformGrid Grid.Row="1" Columns="3" Margin="0,20,0,0">
+                    <Border Margin="5" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="PII RISK" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                            <TextBlock Text="LOW" Foreground="#00FF41" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Margin="5" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="SYNC" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                            <TextBlock Text="99%" Foreground="{StaticResource Gold}" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Margin="5" Background="White" CornerRadius="12" BoxShadow="{StaticResource SoftDepth}">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="UPTIME" Foreground="{StaticResource Platinum}" FontSize="9"/>
+                            <TextBlock Text="100%" Foreground="{StaticResource Obsidian}" FontSize="24" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+            </Grid>
+
+            <Grid Grid.Column="2" RowDefinitions="Auto, *" Margin="10">
+                <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,25">
+                    <TextBlock Text="NERVE CENTER" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="4"/>
+                    <Border Background="rgba(255,255,255,0.8)" CornerRadius="10" Padding="20" BoxShadow="{StaticResource SoftDepth}">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="RESOURCE CONSUMPTION" Foreground="{StaticResource Platinum}" FontSize="10" FontWeight="Bold"/>
+                            <ProgressBar Value="34" Height="2" Foreground="{StaticResource Obsidian}" Background="#EEE"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
-                <Button Name="ExecuteBtn" Content="SYNTHESIZE" Background="{StaticResource Obsidian}" Foreground="White" HorizontalAlignment="Stretch" Height="45"/>
-            </StackPanel>
-        </Border>
-
-        <Grid Grid.Column="1" RowDefinitions="*, 200" Margin="30,0">
-            <Border Grid.Row="0" Background="White" CornerRadius="15" BoxShadow="{StaticResource SoftDepth}" BorderBrush="#EEE" BorderThickness="1">
-                <Panel>
-                    <TextBlock Text="EVENT HORIZON // SPATIAL MAP" Margin="20" Foreground="{StaticResource Platinum}" FontSize="10" HorizontalAlignment="Center"/>
-                    
-                    <Canvas Name="DimensionCanvas">
-                        <Ellipse Width="300" Height="300" Fill="{StaticResource GoldMuted}" Opacity="0.1" Canvas.Left="150" Canvas.Top="50"/>
-                        <Ellipse Width="20" Height="20" Fill="{StaticResource Gold}" Canvas.Left="290" Canvas.Top="190">
-                             <Ellipse.Effect>
-                                <DropShadowEffect BlurRadius="20" Color="#D4AF37" Opacity="0.5"/>
-                             </Ellipse.Effect>
-                        </Ellipse>
-                    </Canvas>
-                </Panel>
-            </Border>
-
-            <UniformGrid Grid.Row="1" Columns="3" Margin="0,20,0,0">
-                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="PII RISKS" Foreground="{StaticResource Platinum}" FontSize="9"/>
-                        <TextBlock Text="0" Foreground="#FF4444" FontSize="20" FontWeight="Bold"/>
-                    </StackPanel>
+                <Border Grid.Row="1" Background="{StaticResource Obsidian}" CornerRadius="12">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top" Background="#252525" Padding="15,10">
+                            <TextBlock Text="ACTIVE_FORENSIC_STREAM" Foreground="#666" FontSize="9" FontFamily="Consolas"/>
+                        </Border>
+                        <ScrollViewer>
+                            <StackPanel Name="AuditLogContainer" Margin="15"/>
+                        </ScrollViewer>
+                    </DockPanel>
                 </Border>
-                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="COGNITIVE LOAD" Foreground="{StaticResource Platinum}" FontSize="9"/>
-                        <TextBlock Text="14%" Foreground="{StaticResource Gold}" FontSize="20" FontWeight="Bold"/>
-                    </StackPanel>
-                </Border>
-                <Border Margin="5" Background="White" CornerRadius="8" BoxShadow="{StaticResource SoftDepth}">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="UPTIME" Foreground="{StaticResource Platinum}" FontSize="9"/>
-                        <TextBlock Text="99.9%" Foreground="{StaticResource Obsidian}" FontSize="20" FontWeight="Bold"/>
-                    </StackPanel>
-                </Border>
-            </UniformGrid>
+            </Grid>
         </Grid>
-
-        <Grid Grid.Column="2" RowDefinitions="Auto, *">
-            <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,20">
-                <TextBlock Text="NERVE CENTER" Foreground="{StaticResource Gold}" FontSize="10" FontWeight="Bold" LetterSpacing="3"/>
-                
-                <Border Background="#F9F9F9" Padding="15" CornerRadius="8">
-                    <StackPanel Spacing="10">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <TextBlock Text="MEMORY USAGE" FontSize="10" Foreground="{StaticResource Platinum}"/>
-                            <TextBlock Grid.Column="1" Text="861 MB" FontSize="10" FontWeight="Bold"/>
-                        </Grid>
-                        <ProgressBar Value="30" Height="2" Foreground="{StaticResource Obsidian}"/>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-
-            <Border Grid.Row="1" Background="{StaticResource Obsidian}" CornerRadius="10" Padding="10">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Top" Text="LIVE_FORENSIC_STREAM" Foreground="#555" FontSize="9" Margin="5" FontFamily="Consolas"/>
-                    <ScrollViewer>
-                        <StackPanel Name="AuditLogContainer"/>
-                    </ScrollViewer>
-                </DockPanel>
-            </Border>
-        </Grid>
-    </Grid>
+    </Panel>
 </Window>
