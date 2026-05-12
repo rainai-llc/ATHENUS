@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AthenusV1.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:Class="AthenusV1.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+    <Grid ColumnDefinitions="220, *">
+        
+        <Border Grid.Column="0" Background="{StaticResource SystemGray}" BorderBrush="#D1D1D6" BorderThickness="0,0,1,0">
+            <ScrollViewer>
+                <StackPanel Margin="20" Spacing="15">
+                    <TextBlock Text="ATHENUS" FontSize="22" FontWeight="Black" Foreground="{StaticResource AthenusGold}"/>
+                    <TextBlock Text="UNIFIED_INTELLIGENCE" FontSize="9" FontWeight="Bold" Margin="0,-15,0,20"/>
+
+                    <TextBlock Text="OPERATIONS" Classes="SidebarLabel"/>
+                    <Button Content="RE-ALIGN" Classes="ActionBtn"/>
+                    <Button Content="SYNTHESIZE" Command="{Binding SynthesizeCommand}" Classes="ActionBtn"/>
+                    <Button Content="REGISTRY" Classes="ActionBtn" Background="Transparent" Foreground="{StaticResource AthenusObsidian}"/>
+
+                    <Separator Margin="0,10"/>
+
+                    <TextBlock Text="SYSTEM METRICS" Classes="SidebarLabel"/>
+                    <TextBlock Text="COGNITIVE LOAD" FontSize="10"/>
+                    <ProgressBar Value="{Binding CognitiveLoad}" Height="4" Foreground="{StaticResource AthenusGold}"/>
+                    
+                    <TextBlock Text="RESOURCE USAGE" FontSize="10" Margin="0,10,0,0"/>
+                    <ProgressBar Value="{Binding ResourceConsumption}" Height="4" Foreground="{StaticResource AthenusGold}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Grid Grid.Column="1" RowDefinitions="*, 220" Margin="25">
+            
+            <Border Grid.Row="0" Background="{StaticResource AthenusObsidian}" CornerRadius="20" BorderBrush="White" BorderThickness="0.5">
+                <Panel>
+                    <TextBlock Text="{Binding StatusText}" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                               Margin="20" Foreground="{StaticResource AthenusGold}" FontWeight="Bold" FontSize="12"/>
+                    
+                    <Viewbox Stretch="Uniform" Margin="40">
+                        <TextBlock Text="ATHENUS_CORE_ACTIVE" Foreground="#333333" FontSize="40" FontWeight="Black"/>
+                    </Viewbox>
+                </Panel>
+            </Border>
+
+            <Border Grid.Row="1" Margin="0,20,0,0" Background="Black" CornerRadius="15" Padding="15">
+                <ScrollViewer x:Name="LogScroller">
+                    <ItemsControl ItemsSource="{Binding AuditLogs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Foreground="{StaticResource AthenusGold}" 
+                                           FontFamily="Courier New" FontSize="12" Margin="0,2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
