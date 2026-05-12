@@ -19,6 +19,23 @@ public partial class MainViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<string> _auditLogs = new();
 
+    [ObservableProperty] private string _currentChatMessage = "";
+    [ObservableProperty] private ObservableCollection<string> _chatMessages = new();
+    
+    [RelayCommand]
+    private void SendChatMessage()
+    {
+        if (string.IsNullOrWhiteSpace(CurrentChatMessage)) return;
+    
+        string formattedMsg = $"H: {CurrentChatMessage}";
+        ChatMessages.Add(formattedMsg);
+        
+        // Also log the transmission to the forensic audit log
+        AddLog($"CHAT_TRANSMISSION: {CurrentChatMessage}");
+        
+        CurrentChatMessage = ""; // Clear input
+    }
+
     public MainViewModel()
     {
         _auditLogs.Add("> INITIALIZING_ATHENUS_V1_CORE...");
