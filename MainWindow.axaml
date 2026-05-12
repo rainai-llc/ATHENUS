@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:AthenusV1.Views"
+        x:Class="AthenusV1.Desktop.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="ATHENUS V1 // CMD_CENTER"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True">
+    <views:MainView />
+</Window>
