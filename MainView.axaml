@@ -1,6 +1,9 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AthenusV1.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="700"
              x:Class="AthenusV1.Views.MainView"
              x:DataType="vm:MainViewModel">
 
@@ -9,35 +12,38 @@
         <Border Grid.Column="0" Background="{StaticResource SystemGray}" BorderBrush="#D1D1D6" BorderThickness="0,0,1,0">
             <Grid RowDefinitions="Auto, Auto, *, Auto">
                 
-                <StackPanel Grid.Row="0" Margin="20" Spacing="10" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="0" Margin="20" Spacing="10">
                     <Image Source="/Assets/logo.png" Width="80" Height="80" HorizontalAlignment="Center"/>
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="ATHENUS" FontSize="24" FontWeight="Black" Foreground="{StaticResource AthenusGold}" HorizontalAlignment="Center"/>
-                        <TextBlock Text="UNIFIED_INTELLIGENCE" FontSize="9" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="UNIFIED_INTELLIGENCE" FontSize="9" FontWeight="Bold" HorizontalAlignment="Center" LetterSpacing="1"/>
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Margin="20,0" Spacing="10">
+                <StackPanel Grid.Row="1" Margin="20,10" Spacing="10">
                     <TextBlock Text="OPERATIONS" Classes="SidebarLabel"/>
-                    <Button Content="RE-ALIGN" Classes="ActionBtn" Opacity="0.7"/>
+                    <Button Content="RE-ALIGN" Classes="ActionBtn" Opacity="0.6"/>
                     <Button Content="{Binding BtnText}" Command="{Binding SynthesizeCommand}" Classes="ActionBtn"/>
                     
-                    <Separator Margin="0,10"/>
+                    <Separator Margin="0,10" Background="#D1D1D6"/>
                     
                     <TextBlock Text="METRICS" Classes="SidebarLabel"/>
                     <TextBlock Text="COGNITIVE_LOAD" FontSize="10"/>
-                    <ProgressBar Value="{Binding CognitiveLoad}" Height="4" Foreground="{StaticResource AthenusGold}"/>
+                    <ProgressBar Value="{Binding CognitiveLoad}" Height="4" Foreground="{StaticResource AthenusGold}" Background="#E5E5EA"/>
+                    
+                    <TextBlock Text="RESOURCE_USAGE" FontSize="10" Margin="0,10,0,0"/>
+                    <ProgressBar Value="{Binding ResourceUsage}" Height="4" Foreground="{StaticResource AthenusGold}" Background="#E5E5EA"/>
                 </StackPanel>
 
-                <Border Grid.Row="2" Margin="15" Classes="AthenusCard" Background="White" VerticalAlignment="Bottom">
-                    <Grid RowDefinitions="Auto, *, Auto">
-                        <TextBlock Grid.Row="0" Text="HOST_COMM_LINK" FontSize="10" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Border Grid.Row="3" Margin="15" Classes="AthenusCard" Background="White" VerticalAlignment="Bottom">
+                    <Grid RowDefinitions="Auto, 150, Auto">
+                        <TextBlock Grid.Row="0" Text="HOST_COMM_LINK" FontSize="10" FontWeight="Bold" Foreground="{StaticResource AthenusPlatinum}" Margin="0,0,0,10"/>
                         
-                        <ScrollViewer Grid.Row="1" Height="150">
+                        <ScrollViewer Grid.Row="1">
                             <ItemsControl ItemsSource="{Binding ChatMessages}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" FontSize="11" TextWrapping="Wrap" Margin="0,2"/>
+                                        <TextBlock Text="{Binding}" FontSize="11" TextWrapping="Wrap" Margin="0,2" Foreground="{StaticResource AthenusObsidian}"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -46,30 +52,26 @@
                         <TextBox Grid.Row="2" Margin="0,10,0,0" Watermark="Message Server..." 
                                  Text="{Binding CurrentChatMessage}"
                                  KeyDown="ChatInput_KeyDown">
-                            <TextBox.InnerRightContent>
-                                <Button Command="{Binding SendChatMessageCommand}" Background="Transparent">
-                                    <Path Icon (Arrow) or "Send" />
-                                    <TextBlock Text="→" Foreground="{StaticResource AthenusGold}"/>
-                                </Button>
-                            </TextBox.InnerRightContent>
                         </TextBox>
                     </Grid>
                 </Border>
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1" RowDefinitions="*, 220" Margin="20">
-            <Border Grid.Row="0" Background="{StaticResource AthenusObsidian}" CornerRadius="15">
+        <Grid Grid.Column="1" RowDefinitions="*, 220" Margin="25">
+            
+            <Border Grid.Row="0" Background="{StaticResource AthenusObsidian}" CornerRadius="20" BorderBrush="White" BorderThickness="0.5">
                 <Panel>
                     <TextBlock Text="{Binding StatusText}" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                               Margin="15" Foreground="{StaticResource AthenusGold}" FontWeight="Bold"/>
-                    <Viewbox Stretch="Uniform" Margin="50">
-                        <TextBlock Text="CORE_READY" Foreground="#2A2A2A" FontWeight="Black"/>
+                               Margin="20" Foreground="{StaticResource AthenusGold}" FontWeight="Bold" FontSize="12"/>
+                    
+                    <Viewbox Stretch="Uniform" Margin="60">
+                        <TextBlock Text="ATHENUS_CORE_ACTIVE" Foreground="#2A2A2A" FontWeight="Black"/>
                     </Viewbox>
                 </Panel>
             </Border>
 
-            <Border Grid.Row="1" Margin="0,15,0,0" Background="Black" CornerRadius="10" Padding="10">
+            <Border Grid.Row="1" Margin="0,20,0,0" Background="Black" CornerRadius="15" Padding="15">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding AuditLogs}">
                         <ItemsControl.ItemTemplate>
