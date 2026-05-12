@@ -1,0 +1,43 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AthenusV1.App"
+             RequestedThemeVariant="Light">
+
+    <Application.Resources>
+        <SolidColorBrush x:Key="AthenusGold" Color="#D4AF37"/>
+        <SolidColorBrush x:Key="AthenusObsidian" Color="#1C1C1E"/>
+        <SolidColorBrush x:Key="AthenusPlatinum" Color="#8E8E93"/>
+        <SolidColorBrush x:Key="GlassBackground" Color="#B3FFFFFF"/>
+        <SolidColorBrush x:Key="SystemGray" Color="#F2F2F7"/>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+        
+        <Style Selector="Border.AthenusCard">
+            <Setter Property="Background" Value="{StaticResource GlassBackground}"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="BorderBrush" Value="#D1D1D6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BoxShadow" Value="0 8 24 0 #15000000"/>
+        </Style>
+
+        <Style Selector="TextBlock.SidebarLabel">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource AthenusPlatinum}"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+        </Style>
+
+        <Style Selector="Button.ActionBtn">
+            <Setter Property="Background" Value="{StaticResource AthenusGold}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Application.Styles>
+</Application>
